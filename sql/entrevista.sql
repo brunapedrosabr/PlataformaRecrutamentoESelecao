@@ -1,69 +1,57 @@
-CREATE TABLE ModalidadeEntrevista (
-    IdModalidade INT PRIMARY KEY AUTO_INCREMENT,
-    Tipo VARCHAR(100)
+CREATE TABLE modalidade_entrevista (
+    id_modalidade  INT PRIMARY KEY AUTO_INCREMENT,
+    tipo           VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE StatusEntrevista (
-    IdStatus INT PRIMARY KEY AUTO_INCREMENT,
-    Status VARCHAR(100)
+CREATE TABLE status_entrevista (
+    id_status      INT PRIMARY KEY AUTO_INCREMENT,
+    status         VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE ResultadoEntrevista (
-    IdResultado INT PRIMARY KEY AUTO_INCREMENT,
-    Resultado VARCHAR(100)
+CREATE TABLE resultado_entrevista (
+    id_resultado   INT PRIMARY KEY AUTO_INCREMENT,
+    resultado      VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE LocalEntrevista (
-    IdLocal INT PRIMARY KEY AUTO_INCREMENT,
-    TipoLocal VARCHAR(100),
-    LocalFisico VARCHAR(255),
-    Link VARCHAR(255)
+CREATE TABLE local_entrevista (
+    id_local       INT PRIMARY KEY AUTO_INCREMENT,
+    tipo_local     VARCHAR(100) NOT NULL,
+    local_fisico   VARCHAR(255),
+    link           VARCHAR(255)
 );
 
-CREATE TABLE Entrevista (
-    IdEntrevista INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE entrevista (
+    id_entrevista        INT PRIMARY KEY AUTO_INCREMENT,
+    cpf                  CHAR(11) NOT NULL,
+    data_entrevista      DATETIME NOT NULL,
+    duracao_min          INT NOT NULL,
+    id_modalidade        INT NOT NULL,
+    id_status_entrevista INT NOT NULL,
+    id_resultado         INT NOT NULL,
+    nota_candidato       FLOAT,
+    feedback             VARCHAR(255),
+    id_etapa             INT NOT NULL,
+    id_local_entrevista  INT NOT NULL,
+    id_entrevistador     INT NOT NULL,
 
-    CPF CHAR(11),
+    FOREIGN KEY (cpf)
+        REFERENCES candidato(cpf),
 
-    Data_Entrevista DATETIME,
-    Duracao_Min INT,
+    FOREIGN KEY (id_modalidade)
+        REFERENCES modalidade_entrevista(id_modalidade),
 
-    IdModalidade INT,
-    IdStatusEntrevista INT,
-    Resultado INT,
+    FOREIGN KEY (id_status_entrevista)
+        REFERENCES status_entrevista(id_status),
 
-    Nota_Candidato FLOAT,
-    Feedback VARCHAR(255),
+    FOREIGN KEY (id_resultado)
+        REFERENCES resultado_entrevista(id_resultado),
 
-    IdEtapa INT,
-    IdLocalEntrevista INT,
-    IdEntrevistador INT,
+    FOREIGN KEY (id_etapa)
+        REFERENCES etapas_do_processo(id_etapa),
 
-    CONSTRAINT FK_Entrevista_Candidato
-        FOREIGN KEY (CPF)
-        REFERENCES Candidato(CPF),
+    FOREIGN KEY (id_local_entrevista)
+        REFERENCES local_entrevista(id_local),
 
-    CONSTRAINT FK_Entrevista_Modalidade
-        FOREIGN KEY (IdModalidade)
-        REFERENCES ModalidadeEntrevista(IdModalidade),
-
-    CONSTRAINT FK_Entrevista_Status
-        FOREIGN KEY (IdStatusEntrevista)
-        REFERENCES StatusEntrevista(IdStatus),
-
-    CONSTRAINT FK_Entrevista_Resultado
-        FOREIGN KEY (Resultado)
-        REFERENCES ResultadoEntrevista(IdResultado),
-
-    CONSTRAINT FK_Entrevista_Etapa
-        FOREIGN KEY (IdEtapa)
-        REFERENCES EtapasDoProcesso(IdEtapa),
-
-    CONSTRAINT FK_Entrevista_Local
-        FOREIGN KEY (IdLocalEntrevista)
-        REFERENCES LocalEntrevista(IdLocal),
-
-    CONSTRAINT FK_Entrevista_Entrevistador
-        FOREIGN KEY (IdEntrevistador)
-        REFERENCES Funcionario(IdFuncionario)
+    FOREIGN KEY (id_entrevistador)
+        REFERENCES funcionario(id_funcionario)
 );
