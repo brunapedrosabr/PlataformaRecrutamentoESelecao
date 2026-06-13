@@ -27,19 +27,19 @@ CREATE TABLE entrevista (
     nota_candidato FLOAT,
     feedback VARCHAR(255),
 
-    cpf CHAR(11),
+    cpf CHAR(11) NOT NULL,
 
-    id_modalidade INT,
+    id_modalidade INT NOT NULL,
 
-    id_status INT,
+    id_status INT NOT NULL,
 
-    id_resultado INT,
+    id_resultado INT NOT NULL,
 
-    id_etapa INT,
+    id_etapa INT NOT NULL,
 
-    id_local INT,
+    id_local INT NOT NULL,
 
-    id_entrevistador INT,
+    id_entrevistador INT NOT NULL,
 );
 
 ALTER TABLE entrevista
