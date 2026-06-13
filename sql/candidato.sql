@@ -1,31 +1,25 @@
-CREATE TABLE endereco (
-    id          INT PRIMARY KEY,
-    rua         VARCHAR(255) NOT NULL,
-    numero      INT NOT NULL,
-    cep         CHAR(8) NOT NULL,
-    cidade      VARCHAR(150) NOT NULL,
-    estado      CHAR(2) NOT NULL
-)
-
 CREATE TABLE candidato (
-    cpf             VARCHAR(11) PRIMARY KEY,
-    nome            VARCHAR(150) NOT NULL,
+    cpf CHAR(11) PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
     data_nascimento DATE NOT NULL,
-    curriculo       TEXT,
+    curriculo VARCHAR(255),
 
-    id_endereco     INT NOT NULL,
+    id_endereco INT NOT NULL
+);
 
-    FOREIGN KEY (id_endereco)
-        REFERENCES endereco(id)
-)
+ALTER TABLE candidato
+    ADD CONSTRAINT fk_candidato_endereco
+    FOREIGN KEY (id_endereco) REFERENCES endereco(id),
 
-CREATE TABLE contato (
-    id           INT PRIMARY KEY,
+CREATE TABLE contato_candidato (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     tipo_contato VARCHAR(50) NOT NULL,
-    valor        VARCHAR(150) NOT NULL,
+    valor VARCHAR(150) NOT NULL,
 
-    cpf          VARCHAR(11) NOT NULL,
+    cpf CHAR(11) NOT NULL
+);
 
-    FOREIGN KEY (cpf)
-        REFERENCES candidato(cpf)
-)
+ALTER TABLE contato_candidato
+    ADD CONSTRAINT fk_contato_cpf
+    FOREIGN KEY (cpf) REFERENCES canditato(cpf),
+    ON DELETE CASCADE;
