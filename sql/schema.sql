@@ -446,7 +446,7 @@ SELECT ep.nome AS etapa_nome,
     f.nome AS funcionario
 FROM etapa_do_processo AS ep
     JOIN funcionario AS f ON f.id = ep.id_func_responsavel
-WHERE ep.data_etapa BETWEEN '2026-03-01' AND '2026-03-31';
+WHERE ep.data_etapa BETWEEN '2026-03-01' AND '2026-03-31'
 -- Q2
 SELECT ep.nome AS etapa_nome,
     ep.descricao,
@@ -459,12 +459,98 @@ FROM etapa_do_processo AS ep
     JOIN tipo_etapa AS te ON te.id = ep.id_tipo_etapa
     JOIN vaga AS v ON v.id = ep.id_vaga
 WHERE te.nome LIKE '%entrevista%'
-    AND v.salario >= 1000;
+    AND v.salario >= 1000
+
 -- Q3
+SELECT
+f.nome AS funcionario,
+c.nome AS cargo,
+c.nivel
+FROM funcionario f
+INNER JOIN cargo c ON f.id_cargo = c.id
+    
 -- Q4
+SELECT
+ep.nome AS etapa,
+te.nome AS tipo_etapa,
+f.nome AS responsavel,
+c.nome AS cargo_responsavel
+FROM etapa_do_processo ep
+INNER JOIN tipo_etapa te ON ep.id_tipo_etapa = te.id
+INNER JOIN funcionario f ON ep.id_func_responsavel = f.id
+INNER JOIN cargo c ON f.id_cargo = c.id
+    
 -- Q5
+SELECT
+c.nome AS candidato,
+cc.tipo_contato,
+cc.valor
+FROM candidato c
+LEFT JOIN contato_candidato cc ON c.cpf = cc.cpf
+    
 -- Q6
+SELECT
+ca.area,
+COUNT(f.id) AS total_funcionarios
+FROM funcionario f
+INNER JOIN cargo ca ON f.id_cargo = ca.id
+GROUP BY ca.area
+HAVING COUNT(f.id) >= 2
+    
 -- Q7
+SELECT
+nome,
+cpf
+FROM candidato
+WHERE cpf IN (
+SELECT cpf
+FROM contato_candidato
+WHERE tipo_contato = 'Email'
+)
+
 -- Q8
+SELECT
+c.nome,
+c.cpf
+FROM candidato c
+WHERE EXISTS (
+SELECT 1
+FROM contato_candidato cc
+WHERE cc.cpf = c.cpf
+AND cc.tipo_contato = 'LinkedIn'
+)
+    
 -- Q9
+WITH resumo_entrevistas AS (
+SELECT
+c.nome AS candidato,
+e.data_entrevista,
+m.tipo AS modalidade,
+s.status AS status_entrevista,
+r.resultado,
+e.nota_candidato,
+f.nome AS entrevistador
+FROM entrevista e
+INNER JOIN candidato c ON e.cpf = c.cpf
+INNER JOIN modalidade_entrevista m ON e.id_modalidade = m.id_modalidade
+INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id_status
+LEFT OUTER JOIN resultado_entrevista r ON e.id_resultado = r.id_resultado
+INNER JOIN funcionario f ON e.id_entrevistador = f.id
+)
+SELECT *
+FROM resumo_entrevistas
+WHERE status_entrevista = 'Realizada'
+    
 -- Q10
+SELECT
+c.nome AS candidato,
+COUNT(e.id_entrevista) AS total_entrevistas,
+AVG(e.nota_candidato) AS media_nota,
+MAX(e.nota_candidato) AS maior_nota
+FROM entrevista e
+INNER JOIN candidato c ON e.cpf = c.cpf
+INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id_status
+WHERE s.status = 'Realizada'
+GROUP BY c.nome
+HAVING AVG(e.nota_candidato) >= 7
+ORDER BY media_nota DESC
