@@ -447,6 +447,7 @@ SELECT ep.nome AS etapa_nome,
 FROM etapa_do_processo AS ep
     JOIN funcionario AS f ON f.id = ep.id_func_responsavel
 WHERE ep.data_etapa BETWEEN '2026-03-01' AND '2026-03-31'
+    
 -- Q2
 SELECT ep.nome AS etapa_nome,
     ep.descricao,
