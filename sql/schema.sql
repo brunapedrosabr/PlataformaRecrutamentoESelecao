@@ -288,7 +288,25 @@ INSERT INTO tipo_etapa (nome) VALUES
 
 -- (3) Consultas
 -- Q1
+SELECT ep.nome AS etapa_nome,
+    ep.descricao,
+    f.nome AS funcionario
+FROM etapa_do_processo AS ep
+    JOIN funcionario AS f ON f.id = ep.id_func_responsavel
+WHERE ep.data_etapa BETWEEN '2026-03-01' AND '2026-03-31';
 -- Q2
+SELECT ep.nome AS etapa_nome,
+    ep.descricao,
+    f.nome AS funcionario,
+    te.nome AS tipo_etapa,
+    v.descricao AS vaga,
+    v.salario
+FROM etapa_do_processo AS ep
+    JOIN funcionario AS f ON f.id = ep.id_func_responsavel
+    JOIN tipo_etapa AS te ON te.id = ep.id_tipo_etapa
+    JOIN vaga AS v ON v.id = ep.id_vaga
+WHERE te.nome LIKE '%entrevista%'
+    AND v.salario >= 1000;
 -- Q3
 -- Q4
 -- Q5
