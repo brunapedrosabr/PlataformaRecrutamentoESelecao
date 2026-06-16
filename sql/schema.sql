@@ -8,6 +8,11 @@ DROP TABLE IF EXISTS etapa_do_processo CASCADE;
 DROP TABLE IF EXISTS funcionario CASCADE;
 DROP TABLE IF EXISTS tipo_etapa CASCADE;
 
+DROP TABLE IF EXISTS Requisito CASCADE;
+DROP TABLE IF EXISTS Vaga CASCADE;
+DROP TABLE IF EXISTS Cargo CASCADE;
+DROP TABLE IF EXISTS Empresa CASCADE;
+
 -- Comandos CREATE
 CREATE TABLE IF NOT EXISTS candidato (
     cpf CHAR(11) PRIMARY KEY,
@@ -66,6 +71,45 @@ CREATE TABLE IF NOT EXISTS funcionario (
 CREATE TABLE IF NOT EXISTS tipo_etapa (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150) NOT NULL
+);
+
+CREATE TABLE Empresa (
+    CNPJ         CHAR(14)     PRIMARY KEY,
+    RazaoSocial  VARCHAR(150) NOT NULL UNIQUE,
+    Endereco     VARCHAR(200) NOT NULL,
+    CONSTRAINT chk_empresa_cnpj_formato CHECK (CNPJ ~ '^[0-9]{14}$')
+);
+
+CREATE TABLE Cargo (
+    IdCargo  INT          PRIMARY KEY,
+    Nome     VARCHAR(100) NOT NULL,
+    Nivel    VARCHAR(50)  NOT NULL,
+    Area     VARCHAR(100) NOT NULL,
+    CONSTRAINT chk_cargo_nivel CHECK (Nivel IN ('Estágio', 'Júnior', 'Pleno', 'Sênior', 'Especialista')),
+    CONSTRAINT uq_cargo_nome_nivel_area UNIQUE (Nome, Nivel, Area)
+);
+
+CREATE TABLE Vaga (
+    IdVaga          INT          PRIMARY KEY,
+    Descricao       VARCHAR(255) NOT NULL,
+    DataPublicacao  DATE         NOT NULL DEFAULT CURRENT_DATE,
+    Quantidade      INT          NOT NULL DEFAULT 1,
+    Salario         FLOAT        NOT NULL,
+    IdCargo         INT          NOT NULL,
+    Status          BOOLEAN      NOT NULL DEFAULT TRUE,
+    CNPJ            CHAR(14)     NOT NULL,
+    CONSTRAINT fk_vaga_cargo    FOREIGN KEY (IdCargo) REFERENCES Cargo(IdCargo),
+    CONSTRAINT fk_vaga_empresa  FOREIGN KEY (CNPJ)    REFERENCES Empresa(CNPJ),
+    CONSTRAINT chk_vaga_quantidade CHECK (Quantidade > 0),
+    CONSTRAINT chk_vaga_salario    CHECK (Salario >= 0)
+);
+
+CREATE TABLE Requisito (
+    IdRequisito  INT          PRIMARY KEY,
+    IdVaga       INT          NOT NULL,
+    Descricao    VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_requisito_vaga FOREIGN KEY (IdVaga) REFERENCES Vaga(IdVaga),
+    CONSTRAINT uq_requisito_vaga_descricao UNIQUE (IdVaga, Descricao)
 );
 
 -- Comandos ALTER (criação de constraints)

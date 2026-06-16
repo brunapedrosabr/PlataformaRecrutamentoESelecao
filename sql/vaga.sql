@@ -1,33 +1,32 @@
-CREATE TABLE vaga (
-    id INT PRIMARY KEY,
-    descricao VARCHAR(255) NOT NULL,
-    data_publicacao DATE NOT NULL,
-    quantidade INT NOT NULL,
-    salario DECIMAL (10,2) NOT NULL,
-    ativa BOOLEAN NOT NULL,
-
-    cnpj CHAR(11) NOT NULL,
-
-    id_cargo INT
+CREATE TABLE Empresa (
+    CNPJ CHAR(14) PRIMARY KEY,
+    RazaoSocial VARCHAR(150),
+    Endereco VARCHAR(200)
 );
 
-ALTER TABLE vaga
-    ADD CONSTRAINT fk_vaga_cnpj
-    FOREIGN KEY (cnpj) REFERENCES empresa(cnpj),
-    ON DELETE CASCADE;
-
-ALTER TABLE vaga
-    ADD CONSTRAINT fk_vaga_cargo
-    FOREIGN KEY (id_cargo) REFERENCES cargo(id);
-
-CREATE TABLE requisito (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    descricao VARCHAR(255) NOT NULL,
-
-    id_vaga INT,
+CREATE TABLE Cargo (
+    IdCargo INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Nivel VARCHAR(50),
+    Area VARCHAR(100)
 );
 
-ALTER TABLE requisito
-    ADD CONSTRAINT fk_requisito_vaga
-    FOREIGN KEY (id_vaga) REFERENCES vaga(id),
-    ON DELETE CASCADE;
+CREATE TABLE Vaga (
+    IdVaga INT PRIMARY KEY,
+    Descricao VARCHAR(255),
+    DataPublicacao DATE,
+    Quantidade INT,
+    Salario FLOAT,
+    IdCargo INT NOT NULL,
+    Status BOOLEAN,
+    CNPJ CHAR(14) NOT NULL,
+    FOREIGN KEY (IdCargo) REFERENCES Cargo(IdCargo),
+    FOREIGN KEY (CNPJ) REFERENCES Empresa(CNPJ)
+);
+
+CREATE TABLE Requisito (
+    IdRequisito INT PRIMARY KEY,
+    IdVaga INT NOT NULL,
+    Descricao VARCHAR(255),
+    FOREIGN KEY (IdVaga) REFERENCES Vaga(IdVaga)
+);
