@@ -1023,7 +1023,7 @@ FROM etapa_do_processo AS ep
     JOIN funcionario AS f ON f.id = ep.id_func_responsavel
     JOIN tipo_etapa AS te ON te.id = ep.id_tipo_etapa
     JOIN vaga AS v ON v.id = ep.id_vaga
-WHERE te.nome LIKE '%entrevista%'
+WHERE te.nome ILIKE '%entrevista%'
     AND v.salario >= 1000;
 -- Q3
 SELECT f.nome AS funcionario,
