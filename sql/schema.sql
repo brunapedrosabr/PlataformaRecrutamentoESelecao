@@ -408,6 +408,197 @@ VALUES ('Análise Curricular'),
     ('Prova Lógica'),
     ('Desafio Técnico'),
     ('Entrevista Gestores');
+INSERT INTO cargo (nome, nivel, area)
+VALUES (
+        'Desenvolvedor Front-end',
+        'Júnior',
+        'Engenharia de Software'
+    ),
+    (
+        'Desenvolvedor Front-end',
+        'Pleno',
+        'Engenharia de Software'
+    ),
+    (
+        'Desenvolvedor Back-end',
+        'Pleno',
+        'Engenharia de Software'
+    ),
+    (
+        'Desenvolvedor Back-end',
+        'Sênior',
+        'Engenharia de Software'
+    ),
+    (
+        'Analista de QA (Qualidade)',
+        'Pleno',
+        'Qualidade e Testes'
+    ),
+    ('Engenheiro DevOps', 'Sênior', 'Infraestrutura'),
+    ('Product Manager', 'Pleno', 'Produto'),
+    ('UX/UI Designer', 'Pleno', 'Design'),
+    ('Scrum Master', 'Sênior', 'Agilidade'),
+    (
+        'Tech Lead',
+        'Especialista',
+        'Engenharia de Software'
+    );
+INSERT INTO funcionario (nome, id_cargo)
+VALUES ('Ana Silva', 3),
+    -- Desenvolvedor Back-end Pleno
+    ('Carlos Eduardo', 1),
+    -- Desenvolvedor Front-end Júnior
+    ('Beatriz Costa', 7),
+    -- Product Manager Pleno
+    ('Daniel Souza', 6),
+    -- Engenheiro DevOps Sênior
+    ('Eduarda Lima', 2),
+    -- Desenvolvedor Front-end Pleno
+    ('Felipe Santos', 4),
+    -- Desenvolvedor Back-end Sênior
+    ('Gabriela Oliveira', 8),
+    -- UX/UI Designer Pleno
+    ('Henrique Martins', 10),
+    -- Tech Lead Especialista
+    ('Isabela Rocha', 5),
+    -- Analista de QA Pleno
+    ('João Pedro', 9),
+    -- Scrum Master Sênior
+    ('Karla Mendes', 3),
+    -- Desenvolvedor Back-end Pleno
+    ('Lucas Almeida', 2),
+    -- Desenvolvedor Front-end Pleno
+    ('Mariana Pereira', 1),
+    -- Desenvolvedor Front-end Júnior
+    ('Nicolas Ferreira', 4),
+    -- Desenvolvedor Back-end Sênior
+    ('Olivia Ribeiro', 5);
+-- Analista de QA Pleno
+INSERT INTO empresa (cnpj, razao_social, endereco)
+VALUES (
+        '11111111000101',
+        'Tech Solutions LTDA',
+        'Av. Paulista, 1000 - São Paulo/SP'
+    ),
+    (
+        '22222222000102',
+        'Digital Corp LTDA',
+        'Av. Faria Lima, 1500 - São Paulo/SP'
+    ),
+    (
+        '33333333000103',
+        'FinBank S.A.',
+        'Av. Rio Branco, 1200 - Rio de Janeiro/RJ'
+    ),
+    (
+        '44444444000104',
+        'Health Plus LTDA',
+        'Rua dos Hospitais, 300 - Recife/PE'
+    ),
+    (
+        '55555555000105',
+        'Retail Group LTDA',
+        'Av. das Américas, 2000 - Rio de Janeiro/RJ'
+    );
+INSERT INTO vaga (
+        descricao,
+        data_publicacao,
+        quantidade,
+        salario,
+        id_cargo,
+        status,
+        cnpj
+    )
+VALUES (
+        'Vaga para Desenvolvedor Front-end Júnior',
+        '2026-02-15',
+        2,
+        3500.00,
+        1,
+        TRUE,
+        '11111111000101'
+    ),
+    (
+        'Vaga para Desenvolvedor Back-end Sênior',
+        '2026-02-20',
+        1,
+        12000.00,
+        2,
+        TRUE,
+        '22222222000102'
+    ),
+    (
+        'Vaga para Product Manager Pleno',
+        '2026-03-01',
+        1,
+        9000.00,
+        3,
+        TRUE,
+        '33333333000103'
+    ),
+    (
+        'Vaga para Analista de QA Pleno',
+        '2026-03-05',
+        2,
+        6500.00,
+        4,
+        TRUE,
+        '44444444000104'
+    ),
+    (
+        'Vaga para Estagiário de Desenvolvimento',
+        '2026-03-10',
+        3,
+        1800.00,
+        5,
+        TRUE,
+        '11111111000101'
+    ),
+    (
+        'Vaga para UX/UI Designer Pleno',
+        '2026-03-12',
+        1,
+        7000.00,
+        6,
+        TRUE,
+        '55555555000105'
+    ),
+    (
+        'Vaga para Engenheiro DevOps Sênior',
+        '2026-03-18',
+        1,
+        11000.00,
+        7,
+        TRUE,
+        '22222222000102'
+    ),
+    (
+        'Vaga para Analista de Dados Pleno',
+        '2026-04-01',
+        2,
+        7500.00,
+        8,
+        TRUE,
+        '33333333000103'
+    ),
+    (
+        'Vaga para Scrum Master Sênior',
+        '2026-04-05',
+        1,
+        9500.00,
+        9,
+        TRUE,
+        '55555555000105'
+    ),
+    (
+        'Vaga para Tech Lead Especialista',
+        '2026-04-10',
+        1,
+        14000.00,
+        10,
+        TRUE,
+        '11111111000101'
+    );
 INSERT INTO etapa_do_processo (
         nome,
         descricao,
@@ -629,41 +820,6 @@ VALUES (
         'curriculos/camila_pereira.pdf',
         10
     );
-INSERT INTO cargo (nome, nivel, area)
-VALUES (
-        'Desenvolvedor Front-end',
-        'Júnior',
-        'Engenharia de Software'
-    ),
-    (
-        'Desenvolvedor Front-end',
-        'Pleno',
-        'Engenharia de Software'
-    ),
-    (
-        'Desenvolvedor Back-end',
-        'Pleno',
-        'Engenharia de Software'
-    ),
-    (
-        'Desenvolvedor Back-end',
-        'Sênior',
-        'Engenharia de Software'
-    ),
-    (
-        'Analista de QA (Qualidade)',
-        'Pleno',
-        'Qualidade e Testes'
-    ),
-    ('Engenheiro DevOps', 'Sênior', 'Infraestrutura'),
-    ('Product Manager', 'Pleno', 'Produto'),
-    ('UX/UI Designer', 'Pleno', 'Design'),
-    ('Scrum Master', 'Sênior', 'Agilidade'),
-    (
-        'Tech Lead',
-        'Especialista',
-        'Engenharia de Software'
-    );
 INSERT INTO contato_candidato (tipo_contato, valor, cpf)
 VALUES ('Email', 'joao.silva@email.com', '12345678901'),
     ('Telefone', '31991234567', '23456789012'),
@@ -691,32 +847,6 @@ VALUES ('Email', 'joao.silva@email.com', '12345678901'),
         '90123456789'
     ),
     ('Telefone', '31994567890', '01234567890');
-INSERT INTO empresa (cnpj, razao_social, endereco)
-VALUES (
-        '11111111000101',
-        'Tech Solutions LTDA',
-        'Av. Paulista, 1000 - São Paulo/SP'
-    ),
-    (
-        '22222222000102',
-        'Digital Corp LTDA',
-        'Av. Faria Lima, 1500 - São Paulo/SP'
-    ),
-    (
-        '33333333000103',
-        'FinBank S.A.',
-        'Av. Rio Branco, 1200 - Rio de Janeiro/RJ'
-    ),
-    (
-        '44444444000104',
-        'Health Plus LTDA',
-        'Rua dos Hospitais, 300 - Recife/PE'
-    ),
-    (
-        '55555555000105',
-        'Retail Group LTDA',
-        'Av. das Américas, 2000 - Rio de Janeiro/RJ'
-    );
 INSERT INTO entrevista (
         cpf,
         data_entrevista,
@@ -860,37 +990,6 @@ VALUES (
         5,
         10
     );
-INSERT INTO funcionario (nome, id_cargo)
-VALUES ('Ana Silva', 3),
-    -- Desenvolvedor Back-end Pleno
-    ('Carlos Eduardo', 1),
-    -- Desenvolvedor Front-end Júnior
-    ('Beatriz Costa', 7),
-    -- Product Manager Pleno
-    ('Daniel Souza', 6),
-    -- Engenheiro DevOps Sênior
-    ('Eduarda Lima', 2),
-    -- Desenvolvedor Front-end Pleno
-    ('Felipe Santos', 4),
-    -- Desenvolvedor Back-end Sênior
-    ('Gabriela Oliveira', 8),
-    -- UX/UI Designer Pleno
-    ('Henrique Martins', 10),
-    -- Tech Lead Especialista
-    ('Isabela Rocha', 5),
-    -- Analista de QA Pleno
-    ('João Pedro', 9),
-    -- Scrum Master Sênior
-    ('Karla Mendes', 3),
-    -- Desenvolvedor Back-end Pleno
-    ('Lucas Almeida', 2),
-    -- Desenvolvedor Front-end Pleno
-    ('Mariana Pereira', 1),
-    -- Desenvolvedor Front-end Júnior
-    ('Nicolas Ferreira', 4),
-    -- Desenvolvedor Back-end Sênior
-    ('Olivia Ribeiro', 5);
--- Analista de QA Pleno
 INSERT INTO requisito (id_vaga, descricao)
 VALUES (1, 'Conhecimento em JavaScript'),
     (1, 'Experiência com React'),
@@ -905,105 +1004,6 @@ VALUES (1, 'Conhecimento em JavaScript'),
     (6, 'Experiência com Figma'),
     (8, 'Conhecimento em SQL'),
     (10, 'Experiência em liderança técnica');
-INSERT INTO vaga (
-        descricao,
-        data_publicacao,
-        quantidade,
-        salario,
-        id_cargo,
-        status,
-        cnpj
-    )
-VALUES (
-        'Vaga para Desenvolvedor Front-end Júnior',
-        '2026-02-15',
-        2,
-        3500.00,
-        1,
-        TRUE,
-        '11111111000101'
-    ),
-    (
-        'Vaga para Desenvolvedor Back-end Sênior',
-        '2026-02-20',
-        1,
-        12000.00,
-        2,
-        TRUE,
-        '22222222000102'
-    ),
-    (
-        'Vaga para Product Manager Pleno',
-        '2026-03-01',
-        1,
-        9000.00,
-        3,
-        TRUE,
-        '33333333000103'
-    ),
-    (
-        'Vaga para Analista de QA Pleno',
-        '2026-03-05',
-        2,
-        6500.00,
-        4,
-        TRUE,
-        '44444444000104'
-    ),
-    (
-        'Vaga para Estagiário de Desenvolvimento',
-        '2026-03-10',
-        3,
-        1800.00,
-        5,
-        TRUE,
-        '11111111000101'
-    ),
-    (
-        'Vaga para UX/UI Designer Pleno',
-        '2026-03-12',
-        1,
-        7000.00,
-        6,
-        TRUE,
-        '55555555000105'
-    ),
-    (
-        'Vaga para Engenheiro DevOps Sênior',
-        '2026-03-18',
-        1,
-        11000.00,
-        7,
-        TRUE,
-        '22222222000102'
-    ),
-    (
-        'Vaga para Analista de Dados Pleno',
-        '2026-04-01',
-        2,
-        7500.00,
-        8,
-        TRUE,
-        '33333333000103'
-    ),
-    (
-        'Vaga para Scrum Master Sênior',
-        '2026-04-05',
-        1,
-        9500.00,
-        9,
-        TRUE,
-        '55555555000105'
-    ),
-    (
-        'Vaga para Tech Lead Especialista',
-        '2026-04-10',
-        1,
-        14000.00,
-        10,
-        TRUE,
-        '11111111000101'
-    );
 -- (3) Consultas
 -- Q1
 SELECT ep.nome AS etapa_nome,
