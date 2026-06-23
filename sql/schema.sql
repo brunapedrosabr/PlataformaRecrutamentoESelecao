@@ -1083,9 +1083,9 @@ WITH resumo_entrevistas AS (
         f.nome AS entrevistador
     FROM entrevista e
         INNER JOIN candidato c ON e.cpf = c.cpf
-        INNER JOIN modalidade_entrevista m ON e.id_modalidade = m.id_modalidade
-        INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id_status
-        LEFT OUTER JOIN resultado_entrevista r ON e.id_resultado = r.id_resultado
+        INNER JOIN modalidade_entrevista m ON e.id_modalidade = m.id
+        INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id
+        LEFT OUTER JOIN resultado_entrevista r ON e.id_resultado = r.id
         INNER JOIN funcionario f ON e.id_entrevistador = f.id
 )
 SELECT *
@@ -1093,12 +1093,12 @@ FROM resumo_entrevistas
 WHERE status_entrevista = 'Realizada';
 -- Q10
 SELECT c.nome AS candidato,
-    COUNT(e.id_entrevista) AS total_entrevistas,
+    COUNT(e.id) AS total_entrevistas,
     AVG(e.nota_candidato) AS media_nota,
     MAX(e.nota_candidato) AS maior_nota
 FROM entrevista e
     INNER JOIN candidato c ON e.cpf = c.cpf
-    INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id_status
+    INNER JOIN status_entrevista s ON e.id_status_entrevista = s.id
 WHERE s.status = 'Realizada'
 GROUP BY c.nome
 HAVING AVG(e.nota_candidato) >= 7
